@@ -3,8 +3,7 @@ from dateutil.relativedelta import relativedelta
 from persiantools.jdatetime import JalaliDate
 import time
 import os
-from pynput import keyboard
-
+from plyer import notification
 class TimeSelector : 
     def __init__ (self):
         print("Hello World")
@@ -20,18 +19,26 @@ class TimeSelector :
         now = time.localtime()
         current_hour = now.tm_hour
         current_minute = now.tm_min
-        if current_hour == hour and current_minute == minute:
-            os.system("shutdown /s /t 10") 
-            for i in range(11):
-                if i == 0 :
-                    print(f'Shutdown your computer in 10 seconds')
-                    print("If you have given up on turning off the system, press ESC key")
-                    time.sleep(1)
-                print(f'Shutdown your computer in {i} seconds')
+        if current_hour == hour and current_minute == minute: # shut down the system in current time 
+            notification.notify(
+            title='Shutdowner ',
+            message='Your system will shut down in 30 seconds',
+            app_name='Shutdowner',  
+            timeout=0 
+            )
+            total_seconds = 30  
+            print(f'Shutdown your computer in {total_seconds} seconds')
+            print("If you have given up on turning off the system, press Ctrl + C keys")
+            while total_seconds:
+                hours, rem = divmod(total_seconds, 3600)
+                minutes, seconds = divmod(rem, 60)
+                timer = '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
+                print(timer, end="\r")
                 time.sleep(1)
-                if keyboard.Key.esc:
-                    os.system("shutdown /a") 
-                    print("System shutdown canceled")
+                total_seconds -= 1
+                if total_seconds == 0:
+                    print("\nShutdown")
+                    os.system("shutdown /s /t 10")
         else:
             print(f"Current time: {current_hour}:{current_minute}")
             time.sleep(60)  
@@ -45,3 +52,8 @@ class TimeSelector :
             print(timer, end="\r")
             time.sleep(1)
             total_seconds -= 1
+            if total_seconds == 0:
+                # print("\nbom")
+                print ("Shutdown")
+                os.system("shutdown /s /t 10") 
+                        

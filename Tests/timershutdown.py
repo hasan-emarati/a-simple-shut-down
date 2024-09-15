@@ -24,7 +24,8 @@ def countdown(hours, minutes, seconds):
         print(timer, end="\r")
         time.sleep(1)
         total_seconds -= 1
-
+        if total_seconds == 0:
+            print("\nbom")
 hours = int(input("Enter the hours: "))
 minutes = int(input("Enter the minutes: "))
 seconds = int(input("Enter the seconds: "))

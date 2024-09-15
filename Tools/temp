@@ -1,0 +1,42 @@
+import time
+import os
+
+# کل زمان به ثانیه (در اینجا 10 ثانیه برای مثال)
+total_seconds = 10  
+
+print(f'Shutdown your computer in {total_seconds} seconds')
+print("If you have given up on turning off the system, press Ctrl + C keys")
+
+while total_seconds:
+    # تبدیل ثانیه‌ها به ساعت، دقیقه و ثانیه
+    hours, rem = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(rem, 60)
+
+    # فرمت شمارش معکوس به سبک ساعت
+    timer = '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
+
+    # نمایش تایمر و بازنویسی خط
+    print(timer, end="\r")
+
+    time.sleep(1)
+    total_seconds -= 1
+
+    if total_seconds == 0:
+        print("\nshutdown")
+        os.system("shutdown /s /t 10")
+
+
+
+
+
+
+for i in range(11):
+                if i == 0 :
+                    print(f'Shutdown your computer in 10 seconds')
+                    print("If you have given up on turning off the system, press Ctrl + C keys")
+                    time.sleep(1)
+                print(f'Shutdown your computer in {i} seconds')
+                time.sleep(1)
+                if i == 10 : 
+                    print ("shutdown")
+                    os.system("shutdown /s /t 10") 
